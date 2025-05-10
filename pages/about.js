@@ -1,12 +1,8 @@
 import React, { useEffect } from "react";
 import Image from 'next/image'
-import profile from '../public/imgs/profile.jpeg'
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import {MdEmail} from "react-icons/md";
-import {FaGithub} from "react-icons/fa";
-import {AiFillLinkedin} from "react-icons/ai";
 import {CheckCircleIcon} from "@heroicons/react/solid";
 import logo from "../public/imgs/logo.png";
 import Footer from "../components/Footer";
