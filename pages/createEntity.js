@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Study from "./entities/Study"
+/*import Study from "./entities/Study"
 import Sample from "./entities/Sample"
 import Patient from "./entities/Patient"
 import CustomEntity from "./entities/CustomEntity"
@@ -10,15 +10,15 @@ const entityMap = {
     Sample,
     Patient,
     CustomEntity
-}
+}*/
 
 export default function CreateEntity() {
     const [selected, setSelected] = useState(entityList[0])
     const SelectedComponent = entityMap[selected]
 
-    return (
-        <div className="space-y-4">
-            {/* Badge row */}
+    return (<></>
+        /*<div className="space-y-4">
+            {/!* Badge row *!/}
             <div className="flex flex-wrap gap-2">
                 {entityList.map((name) => (
                     <button
@@ -45,10 +45,10 @@ export default function CreateEntity() {
                 ))}
             </div>
 
-            {/* Dynamic content */}
+            {/!* Dynamic content *!/}
             <div className="p-4 border rounded-md bg-white">
                 <SelectedComponent />
             </div>
-        </div>
+        </div>*/
     )
 }
