@@ -9,6 +9,7 @@ export default function Study() {
         lab: '',
         bioMaterialId: ''
     })
+
     // messageType: 'success' | 'error'
     const [message, setMessage] = useState('')
     const [messageType, setMessageType] = useState('')
