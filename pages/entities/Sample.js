@@ -195,15 +195,9 @@ export default function Sample() {
                         type="submit"
                         className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
                     >
-                        Save Sample
+                        Save
                     </button>
                 </div>
-
-                {status && (
-                    <p className="mt-4 text-sm text-indigo-700">
-                        {status}
-                    </p>
-                )}
             </form>
         </div>
     )
