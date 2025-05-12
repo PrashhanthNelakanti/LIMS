@@ -13,6 +13,9 @@ export default function Study() {
     // messageType: 'success' | 'error'
     const [message, setMessage] = useState('')
     const [messageType, setMessageType] = useState('')
+    const user = sessionStorage.getItem('login') || '{}';
+
+    const { fname = '' } = JSON.parse(user);
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -35,7 +38,7 @@ export default function Study() {
                     sample_name: form.sampleName,
                     lab: form.lab,
                     bio_material_id: form.bioMaterialId,
-                    created_by: sessionStorage.getItem('')
+                    created_by: fname
                 })
             })
             const data = await res.json()

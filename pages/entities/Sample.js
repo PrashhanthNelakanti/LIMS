@@ -11,7 +11,8 @@ export default function Sample() {
         attachments: [],
     })
 
-    const [status, setStatus] = useState(null)
+    const [message, setMessage] = useState('')
+    const [messageType, setMessageType] = useState('')
 
     const handleChange = (e) => {
         const { name, value, files } = e.target
@@ -24,7 +25,8 @@ export default function Sample() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
+        setMessage('')
+        setMessageType('')
         const payload = {
             sample_id: formData.sampleId,
             sample_name: formData.sampleName,
@@ -44,7 +46,8 @@ export default function Sample() {
 
             const data = await res.json()
             if (data.success) {
-                setStatus('Sample saved successfully.')
+                setMessage('Sample saved successfully.')
+                setMessageType('success')
                 setFormData({
                     sampleId: '',
                     sampleName: '',
@@ -55,17 +58,28 @@ export default function Sample() {
                     attachments: [],
                 })
             } else {
-                setStatus(`Error: ${data.message}`)
+                setMessage(`✖ ${data.message || 'Error saving patient'}`)
+                setMessageType('error')
             }
         } catch (err) {
-            setStatus(`Request failed: ${err.message}`)
+            console.error(err)
+            setMessage('✖ Network error')
+            setMessageType('error')
         }
     }
 
     return (
         <div className="max-w-3xl mx-auto px-4 py-8">
+            {message && (
+                <p className={`mb-4 text-center text-sm font-medium ${
+                    messageType === 'success'
+                        ? 'text-green-800 bg-green-100 border border-green-200 p-2 rounded'
+                        : 'text-red-800 bg-red-100 border border-red-200 p-2 rounded'
+                }`}>
+                    {message}
+                </p>
+            )}
             <form className="space-y-8" onSubmit={handleSubmit}>
-                {/* Sample Header */}
                 <div className="border-b border-gray-200 pb-8">
                     <h2 className="text-xl font-semibold text-gray-900">Sample</h2>
                     <p className="mt-1 text-sm text-gray-600">
@@ -171,24 +185,6 @@ export default function Sample() {
                     </div>
                 </div>
 
-                {/* Auxiliary Data */}
-                <div className="border-b border-gray-200 pb-8">
-                    <h2 className="text-xl font-semibold text-gray-900">Auxiliary Data</h2>
-                    <p className="mt-1 text-sm text-gray-600">Attach any relevant files or links.</p>
-                    <div className="mt-6">
-                        <label htmlFor="attachments" className="block text-sm font-medium text-gray-900">
-                            Attachments
-                        </label>
-                        <input
-                            type="file"
-                            name="attachments"
-                            id="attachments"
-                            multiple
-                            onChange={handleChange}
-                            className="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-indigo-600 file:text-white hover:file:bg-indigo-500"
-                        />
-                    </div>
-                </div>
 
                 {/* Footer */}
                 <div className="flex justify-end space-x-4">
