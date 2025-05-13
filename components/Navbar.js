@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import Image from 'next/image'
 import Link from 'next/link'
 import logo from '../public/imgs/logo.png'
+import {CogIcon} from "@heroicons/react/solid";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 
 const navigation = [
@@ -76,21 +79,26 @@ export default function Navbar() {
                                         <div className="relative w-64">
                                             <input
                                                 type="text"
-                                                className="w-full border border-gray-300 rounded-md pl-3 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                                 placeholder="Search..."
                                                 value={searchQuery}
-                                                onChange={e => setSearchQuery(e.target.value)}
+                                                onChange={(e) => setSearchQuery(e.target.value)}
+                                                className="w-full border border-gray-300 rounded-md py-2 pl-4 pr-10 focus:outline-none focus:ring focus:ring-indigo-200"
                                             />
-                                            <SearchIcon className="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+
+                                            {/* Icon wrapper centered vertically via inset-y-0 and flex items-center */}
+                                            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                                <SearchIcon className="h-5 w-5 text-gray-400" />
+                                            </div>
+
                                             {filteredOptions.length > 0 && (
                                                 <ul className="absolute mt-1 w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                                                    {filteredOptions.map(option => (
+                                                    {filteredOptions.map((option) => (
                                                         <li
                                                             key={option}
                                                             className="px-3 py-2 cursor-pointer hover:bg-gray-100"
                                                             onClick={() => {
-                                                                setSearchQuery(option)
-                                                                router.push(`/${option.toLowerCase()}`)
+                                                                setSearchQuery(option);
+                                                                router.push(`/${option.toLowerCase()}`);
                                                             }}
                                                         >
                                                             {option}
@@ -100,6 +108,7 @@ export default function Navbar() {
                                             )}
                                         </div>
                                     </div>
+
                                 )}
                             </div>
 
@@ -156,7 +165,10 @@ export default function Navbar() {
                                                                 'block px-4 py-2 text-sm text-gray-700'
                                                             )}
                                                         >
-                                                            App Setup
+                                                            <span className="flex items-center gap-2">
+                                                              <CogIcon className="h-5 w-5" aria-hidden="true" />
+                                                                App Setup
+                                                             </span>
                                                         </a>
                                                     </Link>
                                                 )}
@@ -170,7 +182,10 @@ export default function Navbar() {
                                                             'w-full text-left block px-4 py-2 text-sm text-gray-700'
                                                         )}
                                                     >
-                                                        Logout
+                                                        <span className="flex items-center gap-2">
+                                                              <FontAwesomeIcon icon={faRightFromBracket} />
+                                                                Logout
+                                                             </span>
                                                     </button>
                                                 )}
                                             </Menu.Item>
@@ -244,10 +259,12 @@ export default function Navbar() {
                                     <Disclosure.Button
                                         as="a"
                                         href="/app-setup"
-                                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-900 hover:text-white"
+                                        className="flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-900 hover:text-white"
                                     >
+                                        <CogIcon className="h-5 w-5" aria-hidden="true" />
                                         App Setup
                                     </Disclosure.Button>
+
                                     <Disclosure.Button
                                         as="button"
                                         onClick={() => router.push('/logout')}

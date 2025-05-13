@@ -61,12 +61,12 @@ export default function CustomEntity() {
                     {message}
                 </p>
             )}
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Entity Name</label>
                     <input
                         type="text"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="mt-1 block rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         value={entityName}
                         onChange={(e) => setEntityName(e.target.value)}
                         required
@@ -80,7 +80,7 @@ export default function CustomEntity() {
                             <input
                                 type="text"
                                 placeholder="Field Name"
-                                className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                 value={field.name}
                                 onChange={(e) => handleFieldChange(index, 'name', e.target.value)}
                                 required
@@ -114,10 +114,14 @@ export default function CustomEntity() {
                         Add Field
                     </button>
                 </div>
-
-                <button type="submit" className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                <div className="flex justify-end space-x-4">
+                <button
+                    type="submit"
+                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                >
                     Create Entity
                 </button>
+                </div>
             </form>
         </div>
     );

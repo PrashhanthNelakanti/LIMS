@@ -10,7 +10,7 @@ const pool = new Pool({
 
 export default async function handler(req, res) {
     try {
-        const { method, body } = req
+        const { method, body, query } = req
 
         if (method === 'POST') {
             const {
@@ -24,6 +24,7 @@ export default async function handler(req, res) {
                 notes,
                 created_by
             } = body
+
             // Basic validation
             if (!patient_id || !patient_name || !created_by) {
                 return res.status(400).json({
@@ -56,10 +57,33 @@ export default async function handler(req, res) {
         }
 
         if (method === 'GET') {
-            const { rows } = await pool.query(
-                `SELECT *, created_at AT TIME ZONE 'UTC' AS created_at_utc FROM patients ORDER BY created_at DESC`
-            )
-            return res.json({ success: true, patients: rows })
+            const { search } = query
+            let rows
+
+            if (search) {
+                // case-insensitive search on patient_id and patient_name
+                const q = `%${search.trim()}%`
+                const { rows: filtered } = await pool.query(
+                    `SELECT *, created_at AT TIME ZONE 'UTC' AS created_at_utc
+                       FROM patients
+                      WHERE patient_id ILIKE $1
+                         OR patient_name ILIKE $1
+                   ORDER BY created_at DESC
+                      LIMIT 20`,
+                    [q]
+                )
+                rows = filtered
+            } else {
+                const { rows: all } = await pool.query(
+                    `SELECT *, created_at AT TIME ZONE 'UTC' AS created_at_utc
+                       FROM patients
+                   ORDER BY created_at DESC
+                      LIMIT 20`
+                )
+                rows = all
+            }
+
+            return res.status(200).json({ success: true, patients: rows })
         }
 
         res.setHeader('Allow', ['GET', 'POST'])
